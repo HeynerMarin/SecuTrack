@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Home - SecuTrack";
+}
+
+<div class="dashboard-container container-fluid px-4">
+
+    <!-- 🔷 Encabezado -->
+    <div class="row mb-4 text-center text-md-start fade-in">
+        <div class="col-12">
+            <h1 class="display-5 fw-bold text-primary mb-2">
+                <i class="bi bi-shield-lock-fill me-2"></i>SecuTrack
+            </h1>
+            <p class="lead text-secondary">
+                Auditoría de Cumplimiento ISO/IEC 27002 en Servicios Cloud
+            </p>
+        </div>
+    </div>
+
+    <!-- 🔹 Tarjetas de Resumen -->
+    <div class="row g-4 mb-4 fade-in">
+        <div class="col-md-3 col-sm-6">
+            <div class="card dashboard-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="card-title text-uppercase text-muted mb-0">Proveedores</h6>
+                        <div class="icon-circle bg-primary bg-opacity-25 text-primary">
+                            <i class="bi bi-cloud-arrow-up-fill"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold">@ViewBag.TotalProviders</h2>
+                    <p class="text-muted small mb-0">Registrados en el sistema</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card dashboard-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="card-title text-uppercase text-muted mb-0">Auditorías</h6>
+                        <div class="icon-circle bg-success bg-opacity-25 text-success">
+                            <i class="bi bi-clipboard-check-fill"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold">@ViewBag.TotalAudits</h2>
+                    <p class="text-muted small mb-0">Auditorías realizadas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card dashboard-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="card-title text-uppercase text-muted mb-0">Completadas</h6>
+                        <div class="icon-circle bg-info bg-opacity-25 text-info">
+                            <i class="bi bi-check2-circle"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold">@ViewBag.CompletedAudits</h2>
+                    <p class="text-muted small mb-0">Auditorías cerradas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card dashboard-card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="card-title text-uppercase text-muted mb-0">Promedio</h6>
+                        <div class="icon-circle bg-warning bg-opacity-25 text-warning">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold">@ViewBag.AverageScore%</h2>
+                    <p class="text-muted small mb-0">Score de cumplimiento</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔹 Acciones Rápidas -->
+    <div class="row mb-3 fade-in">
+        <div class="col-12">
+            <h3 class="fw-semibold mb-3 text-primary">Acciones Rápidas</h3>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5 fade-in">
+        <div class="col-md-4">
+            <div class="card action-card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle bg-primary text-white me-3">
+                            <i class="bi bi-cloud-plus"></i>
+                        </div>
+                        <h5 class="card-title mb-0">Gestionar Proveedores</h5>
+                    </div>
+                    <p class="card-text text-muted">Administra los proveedores cloud (AWS, Azure, GCP).</p>
+                    <a asp-controller="Providers" asp-action="Index" class="btn btn-outline-primary w-100">Ver Proveedores</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card action-card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle bg-success text-white me-3">
+                            <i class="bi bi-clipboard-check"></i>
+                        </div>
+                        <h5 class="card-title mb-0">Nueva Auditoría</h5>
+                    </div>
+                    <p class="card-text text-muted">Inicia una nueva auditoría de cumplimiento ISO 27002.</p>
+                    <a asp-controller="Audits" asp-action="Create" class="btn btn-outline-success w-100">Crear Auditoría</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card action-card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-circle bg-info text-white me-3">
+                            <i class="bi bi-bar-chart"></i>
+                        </div>
+                        <h5 class="card-title mb-0">Ver Dashboard</h5>
+                    </div>
+                    <p class="card-text text-muted">Visualiza reportes y comparativas de cumplimiento.</p>
+                    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-outline-info w-100">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔹 Sección ISO -->
+    <div class="card border-0 shadow-sm fade-in">
+        <div class="card-header bg-dark text-white d-flex align-items-center">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <h5 class="mb-0">Acerca de ISO/IEC 27002:2022</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">
+                ISO/IEC 27002 es un estándar internacional que proporciona directrices para controles de seguridad de la información.
+                SecuTrack evalúa el cumplimiento de proveedores cloud en cuatro categorías principales:
+            </p>
+            <ul class="mb-0">
+                <li><strong>Controles Organizacionales:</strong> Políticas, roles, gestión de riesgos.</li>
+                <li><strong>Controles de Personas:</strong> Capacitación, concienciación, responsabilidades.</li>
+                <li><strong>Controles Físicos:</strong> Seguridad de instalaciones, protección de activos.</li>
+                <li><strong>Controles Tecnológicos:</strong> Cifrado, control de acceso, monitoreo, backups.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SecuTrack.Application.DTOs.AuditDto>
+
+@{
+    ViewData["Title"] = "Auditorías";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold text-primary mb-0">Auditorías ISO/IEC 27002</h1>
+            <p class="text-muted">Gestiona las auditorías de cumplimiento de los proveedores</p>
+        </div>
+        <a asp-action="Create" class="btn btn-success shadow-sm">
+            <i class="bi bi-plus-circle me-1"></i> Nueva Auditoría
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-1"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i> @TempData["Warning"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive shadow-sm">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Auditor</th>
+                        <th>Fecha</th>
+                        <th>Evaluaciones</th>
+                        <th>Score Global</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var audit in Model)
+                    {
+                        <tr>
+                            <td><strong>@audit.ProviderName</strong></td>
+                            <td>@audit.AuditorName</td>
+                            <td>@audit.AuditDate.ToString("dd/MM/yyyy")</td>
+                            <td>@audit.TotalEvaluations controles</td>
+                            <td>
+                                @if (audit.GlobalScore.HasValue)
+                                {
+                                    <span class="badge @(audit.GlobalScore >= 75 ? "bg-success" : audit.GlobalScore >= 50 ? "bg-warning" : "bg-danger")">
+                                        @audit.GlobalScore.Value.ToString("F2")%
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">N/A</span>
+                                }
+                            </td>
+                            <td>
+                                @if (audit.IsCompleted)
+                                {
+                                    <span class="badge bg-success">Completada</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">En Progreso</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a asp-action="Details" asp-route-id="@audit.Id" class="btn btn-sm btn-outline-info" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    @if (!audit.IsCompleted)
+                                    {
+                                        <a asp-action="Evaluate" asp-route-id="@audit.Id" class="btn btn-sm btn-outline-primary" title="Evaluar">
+                                            <i class="bi bi-clipboard-check"></i>
+                                        </a>
+                                    }
+                                    <a asp-action="Delete" asp-route-id="@audit.Id" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-4 text-center">
+            <i class="bi bi-info-circle me-1"></i> No hay auditorías registradas.
+            <a asp-action="Create" class="alert-link">Crea la primera aquí</a>.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+}

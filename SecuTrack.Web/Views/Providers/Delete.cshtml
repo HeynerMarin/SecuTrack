@@ -1,0 +1,41 @@
+﻿@model SecuTrack.Application.DTOs.AuditDto
+
+@{
+    ViewData["Title"] = "Eliminar Auditoría";
+}
+
+<div class="container py-4 fade-in">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-gradient-secutrack text-white d-flex justify-content-between align-items-center rounded-top">
+            <h5 class="mb-0"><i class="bi bi-trash me-2"></i>Confirmar Eliminación</h5>
+            <a asp-action="Index" class="btn btn-light btn-sm rounded-pill fw-semibold">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </div>
+
+        <div class="card-body bg-light-secutrack text-center">
+            <i class="bi bi-exclamation-triangle text-danger display-4 mb-3"></i>
+            <h5 class="fw-bold text-danger mb-3">¿Está seguro que desea eliminar esta auditoría?</h5>
+            <p class="text-muted mb-4">
+                Esta acción eliminará permanentemente la auditoría y sus registros asociados.
+            </p>
+
+            <div class="border rounded-3 bg-white shadow-inner p-3 text-start mb-4 mx-auto" style="max-width: 600px;">
+                <p><strong>Proveedor:</strong> @Model.ProviderName</p>
+                <p><strong>Auditor:</strong> @Model.AuditorName</p>
+                <p><strong>Fecha:</strong> @Model.AuditDate.ToString("dd/MM/yyyy")</p>
+                <p><strong>Notas:</strong> @Model.Notes</p>
+            </div>
+
+            <form asp-action="DeleteConfirmed" method="post" class="d-inline">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger rounded-pill px-4 me-2">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
